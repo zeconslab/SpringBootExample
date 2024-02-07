@@ -3,3 +3,6 @@
 </a>
 
 # Proyecto de practica SpringBoot API Rest
+
+![GitHub License](https://img.shields.io/github/license/zeconslab/SpringBootExample)
+
