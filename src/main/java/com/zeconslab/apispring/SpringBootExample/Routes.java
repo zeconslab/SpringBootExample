@@ -1,16 +1,16 @@
 package com.zeconslab.apispring.SpringBootExample;
 
 import com.zeconslab.apispring.SpringBootExample.models.Libro;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
-public class Rutas {
+public class Routes {
 
-    private final Logger log = LoggerFactory.getLogger(Rutas.class);
+    private final Logger log = LogManager.getLogger(Routes.class);
     @GetMapping("/welcome")
     String welcome(){
         log.info("Entro a la pagina de bienvenida");
@@ -33,5 +33,19 @@ public class Rutas {
     String guardarLibro (@RequestBody Libro libro) {
         log.debug("Se lee Libro [{}] de Editorial [{}]", libro.nombre , libro.editorial);
         return "Libro guardado";
+    }
+
+    @GetMapping("/animal/{id}")
+    public ResponseEntity<String> obtenerAnimal(@PathVariable String id) {
+        int i = Integer.parseInt(id);
+        if (i == 0 ) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Lamentamos informar que su solicitud no es posible");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("Respuesta Ok");
+    }
+
+    @GetMapping("/calcular/{numero}")
+    public int getCalculo (@PathVariable int numero){
+        throw new NullPointerException("Error el calcular el numero");
     }
 }

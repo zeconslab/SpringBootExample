@@ -1,3 +1,0 @@
-logging:
-  level:
-    com.zeconslab.apispring.SpringBootExample: DEBUG
