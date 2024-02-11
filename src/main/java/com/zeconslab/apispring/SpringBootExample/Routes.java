@@ -1,11 +1,14 @@
 package com.zeconslab.apispring.SpringBootExample;
 
 import com.zeconslab.apispring.SpringBootExample.models.Libro;
+import com.zeconslab.apispring.SpringBootExample.models.UserData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 public class Routes {
@@ -48,4 +51,23 @@ public class Routes {
     public int getCalculo (@PathVariable int numero){
         throw new NullPointerException("Error el calcular el numero");
     }
+
+    @GetMapping("/userData")
+    public ResponseEntity<String> getUserData() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .header("Content-Type", "application/json")
+                .body("{\"name\" : \"mary \"}");
+    }
+
+    @GetMapping("/userData/v2")
+    public Map<String, Map<String, Object>> getUserDatav2 () {
+        return Map.of("User", Map.of("Name", "Mary", "age", 25));
+    }
+
+    @GetMapping("/userData/v3/{edad}")
+    public Map<String , UserData> getUserDatav3(@PathVariable int edad) {
+        return Map.of("User", new UserData("Marry", edad));
+    }
+
 }
